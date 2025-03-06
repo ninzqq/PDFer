@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:pdfer/src/utils/pdf_view.dart';
+import 'package:pdfer/src/utils/save_file.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -25,10 +26,41 @@ class _DeleteViewState extends State<DeleteView> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            'Type in the page number you want to delete from your PDF document',
-            style: Theme.of(context).textTheme.bodySmall,
-            textAlign: TextAlign.center,
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Type in the page number you want to delete from your PDF document',
+                  style: Theme.of(context).textTheme.bodySmall,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              IconButton(
+                onPressed: () async {
+                  final context = this.context;
+                  await saveFile(widget.files[0].path).then((value) {
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                            'File saved to "/storage/emulated/0/Download/output.pdf"'),
+                      ),
+                    );
+                    Logger().d(
+                        'File saved to "/storage/emulated/0/Download/output.pdf"');
+                  });
+
+                  // Delete the temporary file
+                  final tempDirectory = await getTemporaryDirectory();
+                  final tempPath = '${tempDirectory.path}/output.pdf';
+                  await File(tempPath).delete().then((value) {
+                    Logger().d('Temporary file deleted');
+                  });
+                },
+                icon: const Icon(Icons.save),
+                tooltip: 'Save',
+              ),
+            ],
           ),
           const SizedBox(height: 8),
           Row(
@@ -58,7 +90,8 @@ class _DeleteViewState extends State<DeleteView> {
                       _deletePage(int.parse(pageNumberController.text));
                     }
                   },
-                  icon: const Icon(Icons.delete)),
+                  icon: const Icon(Icons.delete),
+                  tooltip: 'Delete page'),
             ],
           ),
           const SizedBox(height: 16),
@@ -106,8 +139,8 @@ class _DeleteViewState extends State<DeleteView> {
       });
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Page deleted. New file saved to $outputPath'),
+        const SnackBar(
+          content: Text('Page deleted.'),
         ),
       );
     });

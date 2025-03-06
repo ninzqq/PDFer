@@ -33,6 +33,7 @@ class _FileSelectionViewState extends State<FileSelectionView> {
           FileSelectionButton(
             allowMultiple: widget.allowMultiple,
             onFilesSelected: (files) {
+              if (files.isEmpty) return;
               selectedFiles = files;
               setState(() {
                 filesSelected = true;
