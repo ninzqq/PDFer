@@ -1,0 +1,6 @@
+{
+  "appTitle": "pdfer",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
