@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pdfer/src/features/delete/delete.dart';
 import 'package:pdfer/src/features/feature_item.dart';
+import 'package:pdfer/src/features/split/split.dart';
 import 'package:pdfer/src/file_selection/file_selection_button.dart';
 
 class FileSelectionView extends StatefulWidget {
@@ -46,7 +47,7 @@ class _FileSelectionViewState extends State<FileSelectionView> {
     } else {
       switch (widget.featureItem.name) {
         case 'Split':
-          return const Text('Split');
+          return SplitView(files: selectedFiles);
         case 'Merge':
           return const Text('Merge');
         case 'Rotate':
