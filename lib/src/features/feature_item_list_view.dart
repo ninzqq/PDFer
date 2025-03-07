@@ -9,13 +9,11 @@ class FeatureItemListView extends StatelessWidget {
   const FeatureItemListView({
     super.key,
     this.items = const [
+      FeatureItem('Split', 'Split PDF into two files', Icons.call_split),
       FeatureItem(
-          'Split', 'Split a PDF file into multiple files', Icons.call_split),
-      FeatureItem(
-          'Merge', 'Merge multiple PDF files into one file', Icons.merge_type),
-      FeatureItem('Rotate', 'Rotate a PDF file', Icons.rotate_left),
-      FeatureItem(
-          'Delete', 'Delete a page or pages from a PDF file', Icons.cut),
+          'Merge', 'Merge multiple PDFs into one file', Icons.merge_type),
+      FeatureItem('Rotate', 'Rotate PDF', Icons.rotate_left),
+      FeatureItem('Delete', 'Delete a page or pages from PDF', Icons.cut),
     ],
   });
 
