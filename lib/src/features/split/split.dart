@@ -113,9 +113,11 @@ class _SplitViewState extends State<SplitView> {
     if (widget.files.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('No files selected'),
+          content: Text('No file selected'),
         ),
       );
+      Logger().e('No file selected');
+      return;
     }
 
     // Load the existing PDF document.
