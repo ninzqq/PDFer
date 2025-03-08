@@ -28,8 +28,10 @@ class FileSelectionButton extends StatelessWidget {
 
         Logger().d(files);
       },
-      child:
-          Text('Select a file', style: Theme.of(context).textTheme.titleMedium),
+      child: Text(
+        allowMultiple ? 'Select files' : 'Select a file',
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
     );
   }
 }
